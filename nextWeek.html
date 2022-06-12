@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="nextWeek.css">
+   
+    
+    <title>To-Do</title>
+</head>
+<body>
+
+   
+
+    <header>
+        <h1>Study Schedule</h1>
+    </header>
+
+    <section class="pos-relative">
+
+       
+
+        <form>
+            <input type="text" class="todo-input">
+            <button class="todo-button" type="submit">
+                <i class="fas fa-plus-square"></i>
+            </button>
+
+
+            <div class="select">
+                <select name="todos" id="" class="filter-todo">
+                    <option value="all">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="uncompleted">Uncompleted</option>
+                </select>
+            </div>
+        </form>
+
+        <section class="hide calendar this-week-cal">
+            <div class="cal-heading">
+                <a href="index.html"><i class="fa-solid fa-caret-left"></i></a>
+                <h1 class="week-name">Next Week</h1> 
+                <a href=""><i class="fa-solid fa-caret-right"></i></a>
+            </div>
+            <a href=""><div id="this-week-cal-mon" class="this-week-cal-day this-week-cal-mon">Monday</div></a>
+            <a href=""><div class="this-week-cal-day this-week-cal-tues">Tuesday</div></a>
+            <a href=""><div class="this-week-cal-day this-week-cal-wed">Wednesday</div></a>
+            <a href=""><div class="this-week-cal-day this-week-cal-thurs">Thursday</div></a>
+            <a href=""><div class="this-week-cal-day this-week-cal-fri">Friday</div></a>
+            <a href=""><div class="this-week-cal-day this-week-cal-sat">Saturday</div></a>
+            <a href=""><div class="this-week-cal-day this-week-cal-sun sunday">Sunday</div></a>
+        </section>
+
+    
+    <main class="main week">
+
+        
+
+        <section class="time-picker">
+            <button class = 'hide time close-time-btn'>x</button>
+            
+
+            <div class="hide time time-picker-hour">
+                <div class = "hour green-font">12</div>
+                <div class = "hour green-font">1</div>
+                <div class = "hour green-font">2</div>
+                <div class = "hour green-font">3</div>
+                <div class = "hour green-font">4</div>
+                <div class = "hour green-font">5</div>
+                <div class = "hour green-font">6</div>
+                <div class = "hour green-font">7</div>
+                <div class = "hour green-font">8</div>
+                <div class = "hour green-font">9</div>
+                <div class = "hour green-font">10</div>
+                <div class = "hour green-font">11</div>           
+            </div>
+
+            <div class="hide time colon">:</div>
+
+            <div class="hide time time-picker-minute">
+                <div class = "minutes green-font">00</div>
+                <div class = "minutes green-font">05</div>
+                <div class = "minutes green-font">10</div>
+                <div class = "minutes green-font">15</div>
+                <div class = "minutes green-font">20</div>
+                <div class = "minutes green-font">25</div>
+                <div class = "minutes green-font">30</div>
+                <div class = "minutes green-font">35</div>
+                <div class = "minutes green-font">40</div>
+                <div class = "minutes green-font">45</div>
+                <div class = "minutes green-font">50</div>
+                <div class = "minutes green-font">55</div>
+                
+                  
+            </div>
+
+            <div class="hide time am-pm">
+                <div class="am ampm green-font">am</div>
+                <div class="pm ampm green-font">pm</div>
+                
+            </div>
+            
+            <button class="hide time set-time-btn">Set Time</button>
+
+        </section>
+
+        <div class="hide hidden-time-picker">
+            
+            <div class="hide chosen-hour">12</div>
+            <div class="hide chosen-minutes">00</div>
+            <div class="hide chosen-am-pm">pm</div>
+        </div>
+        
+
+        <section class="day mon">
+            <h2>Monday</h2>
+            <div class="todo-container todo-container-mon-curr">
+                <ul class="filter todo-list todo-list-mon-curr">
+                    
+                </ul>
+            </div>
+        </section>
+
+        <section class="day tues">
+            <h2>Tuesday</h2>
+            <div class="todo-container">
+                <ul class="filter todo-list todo-list-tues-curr">
+                 
+                    
+                </ul>
+            </div>
+            
+        </section>
+
+        <section class="day wed">
+            <h2>Wednesday</h2>
+            <div class="todo-container">
+                <ul class="filter todo-list todo-list-wed-curr">
+                    
+                </ul>
+            </div>
+        </section>
+
+        <section class="day thurs">
+            <h2>Thursday</h2>
+            <div class="todo-container">
+                <ul class="filter todo-list todo-list-thurs-curr">
+                    
+                </ul>
+            </div>
+        </section>
+
+        <section class="day fri">
+            <h2>Friday</h2>
+            <div class="todo-container">
+                <ul class="filter todo-list todo-list-fri-curr">
+                    
+                </ul>
+            </div>
+        </section>
+
+        <section class="day sat">
+            <h2>Saturday</h2>
+            <div class="todo-container">
+                <ul class="filter todo-list todo-list-sat-curr">
+                    
+                </ul>
+            </div>
+        </section>
+
+        <section class="day sun">
+            <h2>Sunday</h2>
+            <div class="todo-container">
+                <ul class="filter todo-list todo-list-sun-curr">
+                    
+                </ul>
+            </div>
+        </section>
+    </main>
+
+   
+
+        
+
+
+  
+
+   
+
+    
+    
+
+
+
+    
+ 
+    
+    <script src="nextWeek.js"></script>
+</body>
+</html>

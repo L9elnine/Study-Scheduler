@@ -1,0 +1,405 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+:root {
+    --ff-primary: "Poppins", sans-serif;
+    --ff-secondary: 'Source Code Pro', monospace;;
+
+    --fw-reg: 300;
+    --fw-bold: 900;
+
+    --clr-light: #fff;
+    --clr-dark: #5a5858;
+    --clr-accent: #ffad00;
+    --clr-accent-dark: #e49b0a;
+
+    --bg-color: linear-gradient(120deg,#767577, #2b2a2b);
+
+    --fs-h1: 1.25rem;
+    --fs-h2: 1rem;
+    --fs-h3: 1rem;
+    --fs-body: 1rem;
+
+    --bs: 0.25em 0.25em .75em rgba(0, 0, 0, .25),
+          0.125em 0.125em 0.25em rgba(0,0,0,.15);
+    /* box shadow is .25em down and .25em to the right .75em blur.  2nd box shadow is a little closer to the img and a little darker */
+}
+
+body {
+    background: var(--bg-color);
+    color: white;
+    font-family: var(--ff-primary);
+    min-height: 100vh;
+}
+
+header {
+    font-size: 1.25rem;
+}
+
+
+header,
+form {
+    min-height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input,
+form button {
+    padding: .5rem;
+    font-size: 2rem;
+    border: none;
+    background: white;
+}
+
+form button {
+    color: var(--clr-accent);
+    background: white;
+    cursor: pointer;
+    transform: all 0.3s ease;
+}
+
+form button:hover {
+    background: var(--clr-accent);
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+   
+}
+
+h2 {
+    font-family: var(--ff-primary);
+    font-weight: bold;
+    font-size: 1.25rem;
+    padding: .5rem 0 .5rem 1rem;
+}
+
+
+.day {
+    min-height: 10vh;
+    border: 1px solid var(--clr-accent);
+}
+
+.main {
+    margin-top: 5rem;
+}
+
+.this-week-cal {
+    position: absolute;
+    left: 55%;
+    min-height: 15vh;
+    /* min-width: 150px; */
+    /* max-width: 125px; */
+    /* border: 1px solid var(--clr-accent); */
+    background-color: var(--clr-accent-dark);
+    z-index: 100;
+}
+
+.this-week-cal-day {
+    min-height: 2vh;
+    min-width: 200px;
+    margin-left: 3rem;
+    padding: 5px 10px;
+
+}
+
+.cal-heading {  
+    display: flex;    
+    gap: 1rem;
+    max-width: 350px;
+    /* border: 3px solid green; */
+    justify-content: space-around;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
+
+.unhide {
+    display: initial;
+    
+}
+
+
+.time-picker {
+    display: flex;
+    width: 40rem;
+    /* border: 20px solid var(--clr-accent); */
+    border-radius: 5px;
+    background-color: var(--clr-dark);
+    box-shadow: inset 0.2em 0.2em 0.2em 0 rgba(255,255,255,0.5), inset -0.2em -0.2em 0.2em 0 rgba(0,0,0,0.5);
+    position: absolute;
+    left: 25%;
+    top: 50%;
+    z-index: 1000; 
+        
+}
+
+
+
+.close-time-btn {
+    height: 20px;
+    width: 20px;
+    color: white;
+    background-color: var(--clr-accent);
+    border: none;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+}
+
+.time-picker-green-font {
+    color: var(--clr-accent);
+}
+
+.time-picker-hour,
+.time-picker-minute,
+.am-pm {
+    
+    font-size: 75px;
+    /* border: 3px solid rgb(30, 30, 30); */
+    width: 10rem;
+    height: 6rem;
+    text-align: center;   
+    line-height: 6rem;
+    overflow-y: scroll; 
+    margin: 1rem 0 1rem 0;
+    /* z-index: 10000; */
+}
+
+.colon {
+    font-size: 75px;
+    max-width: 20px;
+    text-align: center;   
+    line-height: 7rem;
+    /* z-index: 1000; */
+}
+
+.hour,
+.minutes,
+.am,
+.pm,
+.colon {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    /* z-index: 1000; */
+    
+}
+
+.set-time-btn {
+    height: 60px;
+    width: 75px;
+    align-self: center;
+    margin-left: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    word-wrap: break-word;
+    padding: 5px;
+    background-color: var(--clr-accent);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+
+/* CUSTOM FORMAT SCROLL BAR */
+/* width */
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--clr-accent);
+    border-radius: 10px;
+  }
+
+  /* END CUSTOM FORMAT SCROLL BAR */
+
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid blue; */
+}
+
+.todo-list {
+    min-width: 90%;
+    list-style: none;
+    /* border: 2px solid red; */
+}  
+
+.todo {
+    position: relative;
+    margin: .5rem;
+    background-color: white;
+    color: black;
+    font-size: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    /* transition is for when checkmark clicked, line through and opacity properties ease in and out */
+    /* border: 2px solid magenta; */
+}
+
+
+.todo input {
+    flex: 1;
+    border: none;
+    word-wrap: break-word;
+    word-break: break-all;
+    /* pushes checkmark to end (right side next to trash) */
+}
+
+.start-btn,
+.end-btn {
+    width: 75px;    
+    max-height: 25px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 12px;  
+    background-color: var(--clr-dark);
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    transform: all 0.3s ease;
+}
+
+
+.start-btn:hover,
+.end-btn:hover {
+    background: var(--clr-accent);
+    color: white;
+}
+
+
+
+.start-btn {
+    position: absolute;
+    top: 0px;
+    left: -80px;
+}
+
+.end-btn {
+    position: absolute;
+    bottom: 0px;
+    left: -80px;
+}
+
+.trash-btn,
+.complete-btn {
+    background-color: var(--clr-dark);
+    color: white;
+    border: none;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    
+}
+
+
+
+.complete-btn {
+    background-color: var(--clr-accent);
+}
+
+.todo-item {
+    padding: .5rem;
+    
+}
+
+.fa-trash,
+.fa-check {
+    pointer-events: none;
+    /* this makes it so that you can't click on it. without this, if we click on the trash can or check icon, nothing would happen...we would have to click on the area surrounding the icon in order for the js code to work */
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    /* removes all styling from drop down box */
+}
+
+.select {
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+select {
+    color: var(--clr-accent-dark);
+    width: 10rem;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.select::after {
+    content: "\25BC";
+    /* adds down arrow to drop down box */
+    position: absolute;
+    /* places arrow on inside of select field */
+    background-color: var(--clr-accent);
+    top: 0;
+    right: 0;
+    /* position the arrow */
+    padding: 1rem;
+    pointer-events: none;
+    /* so we can't click on this - we want to be able to click through it */
+    transition: all .3s ease;
+    /* transition for the hover animation over the arrow */
+}
+
+.select:hover::after {
+    background-color: white;
+    color: var(--clr-accent);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
