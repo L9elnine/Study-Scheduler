@@ -82,6 +82,25 @@ h2 {
     padding: .5rem 0 .5rem 1rem;
 }
 
+.update-weeks-btn {
+    position: absolute;
+    left: 2%;
+    top: 5%;
+    font-family: var(--ff-primary);
+    font-weight: bold;
+    font-size: 1.25rem;
+    padding: .5rem;
+    background-color: var(--clr-accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+    }
+
+.update-weeks-btn:hover {
+    background-color: white;
+    color: var(--clr-accent);
+}
+
 
 .day {
     min-height: 10vh;

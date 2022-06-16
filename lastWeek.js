@@ -59,19 +59,39 @@ Array.from(thisWeek).forEach(element => element.addEventListener('click', addTod
 Array.from(hour).forEach(hour => hour.addEventListener('click',  () => chosenHour.innerText = hour.innerText ));
 Array.from(minutes).forEach(minutes => minutes.addEventListener('click', () => chosenMinutes.innerText = minutes.innerText ));
 Array.from(amPm).forEach(ampm => ampm.addEventListener('click', () => chosenAmPm.innerText = ampm.innerText));
-Array.from(hour).forEach(hour => hour.addEventListener('click', function () {
-    hour.classList.remove("time-picker-white-font");
-    hour.classList.toggle('time-picker-green-font');
+Array.from(hour).forEach(hour => hour.addEventListener('click', function (e) {
+    let pick = e.target     
+    hourWhiteFont()  
+    pick.style.removeProperty('color')
+    pick.classList.add('time-picker-green-font');    
 }))
-Array.from(minutes).forEach(minutes => minutes.addEventListener('click', function () {
-    minutes.classList.remove("time-picker-white-font");
-    minutes.classList.toggle('time-picker-green-font');
+
+function hourWhiteFont() {
+    Array.from(hour).forEach(hour => hour.style.color = "white")
+}
+
+
+Array.from(minutes).forEach(minutes => minutes.addEventListener('click', function (e) {
+    let pick = e.target     
+    minutesWhiteFont()  
+    pick.style.removeProperty('color')
+    pick.classList.add('time-picker-green-font'); 
 }))
-Array.from(amPm).forEach(amPm => amPm.addEventListener('click', function () {
-    amPm.classList.remove("time-picker-white-font");
-    amPm.classList.toggle('time-picker-green-font');
+
+function minutesWhiteFont() {
+    Array.from(minutes).forEach(minute => minute.style.color = "white")
+}
+
+Array.from(amPm).forEach(amPm => amPm.addEventListener('click', function (e) {
+    let pick = e.target     
+    amPmWhiteFont()  
+    pick.style.removeProperty('color')
+    pick.classList.add('time-picker-green-font'); 
 }))
-document.addEventListener('click', previousWeek);
+
+function amPmWhiteFont() {
+    Array.from(amPm).forEach(amPm => amPm.style.color = "white")
+}
 
 
 
@@ -175,20 +195,16 @@ function addDayToInputValue(event){
 
 }
 
-
-
-
 function chooseHour(e) {    
     chosenHour.innerText = hour.innerText 
 }
 
 
 function closeClock() {
-    Array.from(time).forEach(element => element.classList.toggle('hide')) 
-    
-    Array.from(hour).forEach(hour => hour.classList.add("time-picker-white-font"))
-    Array.from(minutes).forEach(minutes => minutes.classList.add("time-picker-white-font"))
-    Array.from(amPm).forEach(amPm => amPm.classList.add("time-picker-white-font"))
+    Array.from(time).forEach(element => element.classList.toggle('hide'))    
+    Array.from(hour).forEach(hour => hour.style.color = "white")
+    Array.from(minutes).forEach(minutes => minutes.style.color = "white")
+    Array.from(amPm).forEach(amPm => amPm.style.color = "white")
     
 }
 

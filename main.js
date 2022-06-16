@@ -39,8 +39,7 @@ const hiddenTimePicker = document.querySelector('.hidden-time-picker')
 let startOrEndTimeButton;
 const pageLeftArrow = document.querySelector('#page-left')
 let weekName = document.querySelector('.week-name')
-
-
+const updateWeeksButton = document.querySelector('.update-weeks-btn')
 
 // EVENT LISTENERS
 
@@ -48,44 +47,183 @@ let weekName = document.querySelector('.week-name')
 document.addEventListener('DOMContentLoaded', getTodos);
 document.addEventListener('DOMContentLoaded', getStartTimes);
 document.addEventListener('DOMContentLoaded', getEndTimes);
-// had to create the next 3 event listeners so that all elements with class that are created in js (not in html file) will load before running an event listener on them
 document.addEventListener('DOMContentLoaded', editTodoItem);
+// the next 2 event listeners run after all elements with class that are created in js (not html) are loaded
 document.addEventListener('DOMContentLoaded', () => Array.from(startButton).forEach(element => element.addEventListener('click', showTimePicker)));
+
 document.addEventListener('DOMContentLoaded', () => Array.from(endButton).forEach(element => element.addEventListener('click', showTimePicker)));
-closeTimeButton.addEventListener('click', closeClock)
+
+closeTimeButton.addEventListener('click', closeClock);
 todoButton.addEventListener('click', showCalendar);
+
+
+updateWeeksButton.addEventListener('click', function () {
+    updateWeeks()    
+});
+
 Array.from(todoListAll).forEach(element => element.addEventListener('click', deleteCheck));
 filterOption.addEventListener('click', filterTodo);
 Array.from(thisWeek).forEach(element => element.addEventListener('click', addTodoThisWeek));
+
+// next 3 event listeners are to pick the hour, minutes and am/pm when clock is displayed
 Array.from(hour).forEach(hour => hour.addEventListener('click',  () => chosenHour.innerText = hour.innerText ));
 Array.from(minutes).forEach(minutes => minutes.addEventListener('click', () => chosenMinutes.innerText = minutes.innerText ));
 Array.from(amPm).forEach(ampm => ampm.addEventListener('click', () => chosenAmPm.innerText = ampm.innerText));
-Array.from(hour).forEach(hour => hour.addEventListener('click', function () {
-    hour.classList.remove("time-picker-white-font");
-    hour.classList.toggle('time-picker-green-font');
+
+// change color of chosen hour to green
+Array.from(hour).forEach(hour => hour.addEventListener('click', function (e) {
+    let pick = e.target     
+    hourWhiteFont()  
+    pick.style.removeProperty('color')
+    pick.classList.add('time-picker-green-font');    
 }))
-Array.from(minutes).forEach(minutes => minutes.addEventListener('click', function () {
-    minutes.classList.remove("time-picker-white-font");
-    minutes.classList.toggle('time-picker-green-font');
+
+function hourWhiteFont() {
+    Array.from(hour).forEach(hour => hour.style.color = "white")
+}
+// change color of chosen minutes to green
+Array.from(minutes).forEach(minutes => minutes.addEventListener('click', function (e) {
+    let pick = e.target     
+    minutesWhiteFont()  
+    pick.style.removeProperty('color')
+    pick.classList.add('time-picker-green-font'); 
 }))
-Array.from(amPm).forEach(amPm => amPm.addEventListener('click', function () {
-    amPm.classList.remove("time-picker-white-font");
-    amPm.classList.toggle('time-picker-green-font');
+
+function minutesWhiteFont() {
+    Array.from(minutes).forEach(minute => minute.style.color = "white")
+}
+// change color of chosen am/pm to green
+Array.from(amPm).forEach(amPm => amPm.addEventListener('click', function (e) {
+    let pick = e.target     
+    amPmWhiteFont()  
+    pick.style.removeProperty('color')
+    pick.classList.add('time-picker-green-font'); 
 }))
-document.addEventListener('click', previousWeek);
+
+function amPmWhiteFont() {
+    Array.from(amPm).forEach(amPm => amPm.style.color = "white")
+}
+
+// move next week's items to current week and current week's items to last week
+function updateWeeks() {    
+    let todos;
+    let todosNextWeek;
+    let todosLastWeek;
+    if (localStorage.getItem('todos') === null) {
+        todos = [];
+    } else {
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    if (localStorage.getItem('todosLastWeek') === null) {
+        todosLastWeek = [];
+    } else {
+        todosLastWeek = JSON.parse(localStorage.getItem('todosLastWeek'));
+    }
+    if (localStorage.getItem('todosNextWeek') === null) {
+        todosNextWeek = [];
+    } else {
+        todosNextWeek = JSON.parse(localStorage.getItem('todosNextWeek'));
+    }
+    todosLastWeek = todos;
+    todos = todosNextWeek;
+    todosNextWeek = [];
+    
+    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem('todosLastWeek', JSON.stringify(todosLastWeek));
+    localStorage.setItem('todosNextWeek', JSON.stringify(todosNextWeek));
+
+    location.reload()
+    updateWeeksStartAndEndTimes()
+
+    
+}
+
+// move next week's start/end times to current week and current week's start/end times to last week
+function updateWeeksStartAndEndTimes() {
+    let startTimesCurrent;
+    let endTimesCurrent;
+    let startTimesLastWeek;
+    let endTimesLastWeek;
+    let startTimesNextWeek;
+    let endTimesNextWeek;
+    if (localStorage.getItem('startTimesSave') === null) {
+        startTimesCurrent = [];
+    } else {
+        startTimesCurrent = JSON.parse(localStorage.getItem('startTimesSave'));
+    }
+    if (localStorage.getItem('startTimesSaveLastWeek') === null) {
+        startTimesLastWeek = [];
+    } else {
+        startTimesLastWeek = JSON.parse(localStorage.getItem('startTimesSaveLastWeek'));
+    }
+    if (localStorage.getItem('startTimesSaveNextWeek') === null) {
+        startTimesNextWeek = [];
+    } else {
+        startTimesNextWeek = JSON.parse(localStorage.getItem('startTimesSaveNextWeek'));
+    }
+    if (localStorage.getItem('endTimesSave') === null) {
+        endTimesCurrent = [];
+    } else {
+        endTimesCurrent = JSON.parse(localStorage.getItem('endTimesSave'));
+    }
+    if (localStorage.getItem('endTimesSaveLastWeek') === null) {
+        endTimesLastWeek = [];
+    } else {
+        endTimesLastWeek = JSON.parse(localStorage.getItem('endTimesSaveLastWeek'));
+    }
+    if (localStorage.getItem('endTimesSaveNextWeek') === null) {
+        endTimesNextWeek = [];
+    } else {
+        endTimesNextWeek = JSON.parse(localStorage.getItem('endTimesSaveNextWeek'));
+    }
+    startTimesLastWeek = startTimesCurrent;
+    startTimesCurrent = startTimesNextWeek;
+    startTimesNextWeek = [];
+    endTimesLastWeek = endTimesCurrent;
+    endTimesCurrent = endTimesNextWeek;
+    endTimesNextWeek = [];
+    console.log(startTimesCurrent)
+    console.log(startTimesNextWeek)
+
+    startButtonTimes = Array.from(startButton)  
+
+   for (let i = 0; i < startButtonTimes.length; i++) {
+       
+       startButtonTimes[i].innerText = startTimesCurrent[i]
+       if (startButtonTimes[i].innerText !== 'Start') {
+       startButtonTimes[i].style.backgroundColor = '#39ff14'
+       startButtonTimes[i].style.color = 'white'
+       }
+
+   }  
+
+   endButtonTimes = Array.from(endButton)  
+
+   for (let i = 0; i < endButtonTimes.length; i++) {
+         
+       endButtonTimes[i].innerText = endTimesCurrent[i]
+       if (endButtonTimes[i].innerText !== 'End') {
+       endButtonTimes[i].style.backgroundColor = '#39ff14'
+       endButtonTimes[i].style.color = 'white'
+       }
+    }
+    
+    localStorage.setItem('startTimesSave', JSON.stringify(startTimesCurrent));
+    localStorage.setItem('startTimesSaveLastWeek', JSON.stringify(startTimesLastWeek));
+    localStorage.setItem('startTimesSaveNextWeek', JSON.stringify(startTimesNextWeek));
+    localStorage.setItem('endTimesSave', JSON.stringify(endTimesCurrent));
+    localStorage.setItem('endTimesSaveLastWeek', JSON.stringify(endTimesLastWeek));
+    localStorage.setItem('endTimesSaveNextWeek', JSON.stringify(endTimesNextWeek));
 
 
-
+}
 
 function showCalendar(event) {
     event.preventDefault();
-    // window.location.href = "calendar.html"
     thisWeekCal.classList.toggle('hide');
 }
 
-function previousWeek() {
-    
-}
+
 
 function addTodoThisWeek(event) {
     // prevent form from submitting
@@ -97,33 +235,30 @@ function addTodoThisWeek(event) {
     // create li
     const newTodo = document.createElement('input');
     newTodo.setAttribute('type', 'text')
-    newTodo.setAttribute('value', todoInput.value)
-    // newTodo.innerText = todoInput.value;
-    
+    newTodo.setAttribute('value', todoInput.value)    
     newTodo.classList.add('todo-item');
     // APPEND TO DIV    
     todoDiv.appendChild(newTodo);
-    // ADD TODO TO LOCAL STORAGE
-    // saveLocalTodos(todoInput.value);
+    // ADD TODO TO LOCAL STORAGE BY CALLING BELOW FUNCTION
     addDayToInputValue(event) 
-    // Start time button
+    // create start time button
     const startTime = document.createElement('button');
     startTime.innerHTML = 'Start';
     startTime.classList.add('start-btn');
     todoDiv.appendChild(startTime);
     startTime.onclick = showTimePicker;
-    // End time button
+    // create end time button
     const endTime = document.createElement('button');
     endTime.innerHTML = 'End';
     endTime.classList.add('end-btn');
     todoDiv.appendChild(endTime); 
     endTime.onclick = showTimePicker;         
-    // Checkmark button
+    // create checkmark button
     const completedButton = document.createElement('button');
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
     completedButton.classList.add('complete-btn');
     todoDiv.appendChild(completedButton);
-    // trash button
+    // create trash button
     const trashButton = document.createElement('button');
     trashButton.innerHTML = '<i class="fas fa-trash"></i>';
     trashButton.classList.add('trash-btn');
@@ -176,20 +311,16 @@ function addDayToInputValue(event){
 
 }
 
-
-
-
 function chooseHour(e) {    
     chosenHour.innerText = hour.innerText 
 }
 
 
 function closeClock() {
-    Array.from(time).forEach(element => element.classList.toggle('hide')) 
-    
-    Array.from(hour).forEach(hour => hour.classList.add("time-picker-white-font"))
-    Array.from(minutes).forEach(minutes => minutes.classList.add("time-picker-white-font"))
-    Array.from(amPm).forEach(amPm => amPm.classList.add("time-picker-white-font"))
+    Array.from(time).forEach(element => element.classList.toggle('hide'))    
+    Array.from(hour).forEach(hour => hour.style.color = "white")
+    Array.from(minutes).forEach(minutes => minutes.style.color = "white")
+    Array.from(amPm).forEach(amPm => amPm.style.color = "white")
     
 }
 
@@ -203,9 +334,9 @@ setTimeButton.addEventListener( 'click', function () {
   startOrEndTimeButton.style.backgroundColor = '#39ff14';
           startOrEndTimeButton.style.color = 'white'; 
 Array.from(time).forEach(element => element.classList.toggle('hide')); 
-Array.from(hour).forEach(hour => hour.classList.add("time-picker-white-font"))
-Array.from(minutes).forEach(minutes => minutes.classList.add("time-picker-white-font"))
-Array.from(amPm).forEach(amPm => amPm.classList.add("time-picker-white-font"))
+// Array.from(hour).forEach(hour => hour.classList.add("time-picker-white-font"))
+// Array.from(minutes).forEach(minutes => minutes.classList.add("time-picker-white-font"))
+// Array.from(amPm).forEach(amPm => amPm.classList.add("time-picker-white-font"))
 
 })
 
@@ -219,8 +350,8 @@ function closingCode(){
     let startTimesUpdate = []
     
     Array.from(startButton).forEach(button => startTimesUpdate.push(button.innerText))
-    // save current week start and end times
-    if (weekName.innerText = "Current Week") {
+
+    
     if (localStorage.getItem('startTimesSave') === null) {
         startTimes = [];
     } else {
@@ -243,46 +374,15 @@ function closingCode(){
     endTimes = endTimesUpdate
     
     
-    localStorage.setItem('endTimesSave', JSON.stringify(endTimes))  
-    
-    }
-
-    // save next week start and end times
-
-    if (weekName.innerText = "Next Week") {
-    if (localStorage.getItem('startTimesSaveNextWeek') === null) {
-        startTimes = [];
-    } else {
-        startTimes = JSON.parse(localStorage.getItem('startTimesSaveNextWeek'))
-    }
-    startTimes = startTimesUpdate    
-    
-    localStorage.setItem('startTimesSaveNextWeek', JSON.stringify(startTimes))   
-
-    let endTimesUpdate = []
-    
-    Array.from(endButton).forEach(button => endTimesUpdate.push(button.innerText))
-
-    
-    if (localStorage.getItem('endTimesSaveNextWeek') === null) {
-        endTimes = [];
-    } else {
-        endTimes = JSON.parse(localStorage.getItem('endTimesSaveNextWeek'))
-    }
-    endTimes = endTimesUpdate
-    
-    
-    localStorage.setItem('endTimesSaveNextWeek', JSON.stringify(endTimes))  
-    
-    }
+    localStorage.setItem('endTimesSave', JSON.stringify(endTimes))   
     
     
 }
 
-// assign start times to correct study items
+// get start times from local storage and assign to correct study item
 function getStartTimes(){ 
        
-    // assign start times to current week study items
+    
     if (localStorage.getItem('startTimesSave') === null) {
         startTimes = [];
         
@@ -304,6 +404,7 @@ function getStartTimes(){
     
 }
 
+// get end times from local storage and assign to correct study item
 function getEndTimes(){   
     
     if (localStorage.getItem('endTimesSave') === null) {
@@ -334,7 +435,7 @@ function editTodoItem(e) {
     
     let inputElements = document.getElementsByClassName('todo-item')
   
-    // find matching element in local storage when the input is clicked.  in order to match value to local storage value, I have to add .day to the end of the value.  I don't have to worry about .dayCompleted because I made the input field read only when marked completed     
+    // find matching element in local storage when the input is clicked.  in order to match value to local storage value, I had to add .day to the end of the value.  I don't have to worry about .dayCompleted items because I made the input field read only when marked completed     
     Array.from(inputElements).forEach(element => element.addEventListener('focus', findCurrValueMatch))
 
     function findCurrValueMatch(e) {
@@ -356,7 +457,6 @@ function editTodoItem(e) {
         } else if (item.classList.contains('todo-list-sun-curr')) {
             inputValue = inputValue + '.sun'
         }  
-     
     
     
     let todos = JSON.parse(localStorage.getItem('todos'))
