@@ -93,18 +93,12 @@ function amPmWhiteFont() {
     Array.from(amPm).forEach(amPm => amPm.style.color = "white")
 }
 
-
-
-
 function showCalendar(event) {
     event.preventDefault();
     // window.location.href = "calendar.html"
     thisWeekCal.classList.toggle('hide');
 }
 
-function previousWeek() {
-    
-}
 
 function addTodoThisWeek(event) {
     // prevent form from submitting
